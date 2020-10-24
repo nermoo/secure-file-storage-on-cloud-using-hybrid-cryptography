@@ -15,7 +15,7 @@ import tkinter as tk
 def encrypt(info,key):
     msg=info
     BlOCK_SIZE=16
-    PAD="%"
+    PAD=b"%"
     padding=lambda s: s+ (BlOCK_SIZE-len(s) % BlOCK_SIZE) * PAD
     cipher=AES.new(new_pwd, AES.MODE_ECB)
     print(padding(msg))
@@ -24,7 +24,7 @@ def encrypt(info,key):
 
 def decrypt(info,key):
     msg=info
-    PAD="%"
+    PAD=b"%"
     decipher=AES.new(new_pwd,AES.MODE_ECB)
     pt=decipher.decrypt(msg).decode('utf-8')
     pad_index=pt.find(PAD)
@@ -81,7 +81,7 @@ def encrypt_the_file():
 def decrypt_the_file():
     global new_pwd, filename
     if filename!= None:
-        fname=fname+ '.enc'
+        fname=filename+ '.enc'
         decrypt_file(fname,new_pwd)
     else:
         messagebox.showerror(title="error", message="There was no file loaded to decrypt")
